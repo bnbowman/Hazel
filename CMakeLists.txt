@@ -3,4 +3,4 @@ project(Hazel)
 
 set(CMAKE_CXX_STANDARD 14)
 
-add_library(Hazel SHARED library.cpp library.h)
+add_library(Hazel SHARED Hazel/library.cpp Hazel/library.h)
