@@ -4,7 +4,7 @@
 #pragma once
 
 // Core definitions
-#include "Hazel/Core.h"
+#include "Hazel/Core/Core.h"
 #include "Hazel/Core/Log.h"
 #include "Hazel/Core/KeyCodes.h"
 

@@ -3,7 +3,7 @@
 //
 #pragma once
 
-#include "Events/Event.h"
+#include "Hazel/Events/Event.h"
 
 namespace Hazel {
 
@@ -27,7 +27,7 @@ namespace Hazel {
 
         virtual ~Window() {}
 
-        virtual OnUpdate() = 0;
+        virtual void OnUpdate() = 0;
 
         virtual unsigned int GetHeight() const = 0;
         virtual unsigned int GetWidth() const = 0;
