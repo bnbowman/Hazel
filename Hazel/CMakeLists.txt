@@ -3,5 +3,5 @@ project(Hazel)
 
 set(CMAKE_CXX_STANDARD 14)
 
-add_library(Hazel SHARED src/Hazel/Application.cpp src/Hazel/Application.h src/Hazel.h src/Hazel/EntryPoint.h src/Hazel/Log.cpp src/Hazel/Log.h thirdparty/spdlog/include/spdlog/spdlog.h)
+add_library(Hazel SHARED src/Hazel/Application.cpp src/Hazel/Application.h src/Hazel.h src/Hazel/EntryPoint.h src/Hazel/Core/Log.cpp src/Hazel/Core/Log.h thirdparty/spdlog/include/spdlog/spdlog.h src/Hazel/Events/Event.h src/Hazel/Core.h src/Hazel/Events/ApplicationEvent.h src/Hazel/Events/KeyEvent.h src/Hazel/Events/MouseEvent.h src/Hazel/Core/KeyCodes.h src/Hazel/Core/MouseCodes.h)
 target_include_directories(Hazel PUBLIC thirdparty/spdlog/include)
