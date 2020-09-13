@@ -1,3 +1,6 @@
 [submodule "Hazel/thirdparty/spdlog"]
 	path = Hazel/thirdparty/spdlog
 	url = https://github.com/gabime/spdlog
+[submodule "Hazel/thirdparty/glfw"]
+	path = Hazel/thirdparty/glfw
+	url = https://github.com/bnbowman/glfw
