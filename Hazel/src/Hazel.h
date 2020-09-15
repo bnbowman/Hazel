@@ -6,6 +6,8 @@
 // Core definitions
 #include "Hazel/Core/Core.h"
 #include "Hazel/Core/Log.h"
+#include "Hazel/Core/Layer.h"
+
 #include "Hazel/Core/KeyCodes.h"
 
 #include "Hazel/Application.h"
