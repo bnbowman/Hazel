@@ -46,6 +46,12 @@ namespace Hazel {
         if (!s_GLFWinitialized) {
             int success = glfwInit();
             HZ_CORE_ASSERT(success, "GLFW failed to initialize!");
+
+            glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
+            glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
+            glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 1);
+            glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+
             glfwSetErrorCallback(GLFWErrorCallback);
             s_GLFWinitialized = true;
         }

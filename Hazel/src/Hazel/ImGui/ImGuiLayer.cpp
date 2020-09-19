@@ -5,6 +5,7 @@
 
 #include "ImGuiLayer.h"
 #include "Hazel/Platform/OpenGL/ImGuiOpenGLRenderer.h"
+#include "Hazel/Platform/OpenGL/imgui_impl_glfw.h"
 #include "imgui.h"
 #include "GLFW/glfw3.h"
 #include "Hazel/Application.h"
@@ -54,7 +55,15 @@ namespace Hazel {
         io.KeyMap[ImGuiKey_Y] = GLFW_KEY_Y;
         io.KeyMap[ImGuiKey_Z] = GLFW_KEY_Z;
 
-        ImGui_ImplOpenGL3_Init("#version 410");
+        //glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GLFW_TRUE);
+        //glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
+        //glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 1);
+        //glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+
+        Application& app = Application::Get();
+        GLFWwindow* window = static_cast<GLFWwindow*>(app.GetWindow().GetNativeWindow());
+        ImGui_ImplGlfw_InitForOpenGL(window, true);
+        ImGui_ImplOpenGL3_Init("#version 410 core");
     }
 
     void ImGuiLayer::OnDetach()
