@@ -4,7 +4,7 @@
 #pragma once
 
 #include "Hazel/Core/Layer.h"
-#include "Hazel/Core/Core.h"
+#include "Hazel/Core/Base.h"
 
 #include "Hazel/Events/ApplicationEvent.h"
 #include "Hazel/Events/KeyEvent.h"

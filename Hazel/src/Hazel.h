@@ -4,7 +4,7 @@
 #pragma once
 
 // Core definitions
-#include "Hazel/Core/Core.h"
+#include "Hazel/Core/Base.h"
 #include "Hazel/Core/Log.h"
 #include "Hazel/Core/Layer.h"
 #include "Hazel/ImGui/ImGuiLayer.h"
