@@ -4,3 +4,6 @@
 [submodule "Hazel/thirdparty/glfw"]
 	path = Hazel/thirdparty/glfw
 	url = https://github.com/bnbowman/glfw
+[submodule "Hazel/thirdparty/imgui"]
+	path = Hazel/thirdparty/imgui
+	url = https://github.com/bnbowman/imgui

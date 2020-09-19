@@ -7,6 +7,7 @@
 #include "Hazel/Core/Core.h"
 #include "Hazel/Core/Log.h"
 #include "Hazel/Core/Layer.h"
+#include "Hazel/ImGui/ImGuiLayer.h"
 
 #include "Hazel/Core/KeyCodes.h"
 
