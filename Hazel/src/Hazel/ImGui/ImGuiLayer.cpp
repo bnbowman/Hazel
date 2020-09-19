@@ -86,6 +86,7 @@ namespace Hazel {
         ImGui::ShowDemoWindow(&show);
 
         ImGui::Render();
+        io.DisplayFramebufferScale = ImVec2(2.0f, 2.0f);
         ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
     }
 
@@ -98,7 +99,7 @@ namespace Hazel {
         dispatcher.Dispatch<MouseScrolledEvent>(HZ_BIND_EVENT_FN(ImGuiLayer::OnMouseScrolledEvent));
         dispatcher.Dispatch<KeyPressedEvent>(HZ_BIND_EVENT_FN(ImGuiLayer::OnKeyPressedEvent));
         dispatcher.Dispatch<KeyReleasedEvent>(HZ_BIND_EVENT_FN(ImGuiLayer::OnKeyReleasedEvent));
-        //dispatcher.Dispatch<KeyTypedEvent>(HZ_BIND_EVENT_FN(ImGuiLayer::OnKeyTypedEvent));
+        dispatcher.Dispatch<KeyTypedEvent>(HZ_BIND_EVENT_FN(ImGuiLayer::OnKeyTypedEvent));
         dispatcher.Dispatch<WindowResizeEvent>(HZ_BIND_EVENT_FN(ImGuiLayer::OnWindowResizeEvent));
     }
 
@@ -170,7 +171,7 @@ namespace Hazel {
     {
         ImGuiIO& io = ImGui::GetIO();
         io.DisplaySize = ImVec2(e.GetWidth(), e.GetHeight());
-        io.DisplayFramebufferScale = ImVec2(1.0f, 1.0f);
+        io.DisplayFramebufferScale = ImVec2(2.0f, 2.0f);
         glViewport(0, 0, e.GetWidth(), e.GetHeight());
 
         return false;
