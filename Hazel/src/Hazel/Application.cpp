@@ -5,8 +5,9 @@
 #include "hzpch.h"
 #include "Application.h"
 
-#include "Core/Log.h"
-#include "Events/ApplicationEvent.h"
+#include "Hazel/Core/Log.h"
+#include "Hazel/Core/Input.h"
+#include "Hazel/Events/ApplicationEvent.h"
 
 namespace Hazel {
 
@@ -35,6 +36,9 @@ namespace Hazel {
 
             for (Layer* layer : m_LayerStack)
                 layer->OnUpdate();
+
+            const auto& p = Input::GetMousePosition();
+            HZ_CORE_TRACE("{0}, {1}", p.first, p.second);
         }
     }
 
