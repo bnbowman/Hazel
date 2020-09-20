@@ -13,12 +13,19 @@ public:
 
     void OnUpdate() override
     {
-        HZ_INFO("ExampleLayer::OnUpdate");
+        //HZ_INFO("ExampleLayer::OnUpdate");
+        if (Hazel::Input::IsKeyPressed(Hazel::Key::Tab))
+            HZ_TRACE("Tab key is pressed! (poll)");
     }
 
     void OnEvent(Hazel::Event& event) override
     {
-        HZ_TRACE("{0}", event);
+        if (event.GetEventType() == Hazel::EventType::KeyPressed) {
+            Hazel::KeyPressedEvent& e = (Hazel::KeyPressedEvent&)event;
+            if (e.GetKeyCode() == Hazel::Key::Tab)
+                HZ_TRACE("Tab key is pressed! (event)");
+            HZ_INFO("{0}", static_cast<char>(e.GetKeyCode()));
+        }
     }
 };
 
