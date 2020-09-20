@@ -23,7 +23,7 @@ namespace Hazel {
         LayerIterator end() { return m_Layers.end(); }
     protected:
         std::vector<Layer*> m_Layers;
-        LayerIterator m_LayerInsert;
+        unsigned int m_LayerInsertIndex = 0;
     };
 
 }
