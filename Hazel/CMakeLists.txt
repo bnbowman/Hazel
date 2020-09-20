@@ -16,5 +16,5 @@ target_link_libraries(Hazel glfw)
 add_subdirectory(thirdparty/imgui)
 target_link_libraries(Hazel imgui)
 
-target_include_directories(Hazel PUBLIC thirdparty/spdlog/include thirdparty/glfw/include thirdparty/glad/include thirdparty/imgui src)
+target_include_directories(Hazel PUBLIC thirdparty/spdlog/include thirdparty/glfw/include thirdparty/glad/include thirdparty/imgui thirdparty/glm src)
 target_precompile_headers(Hazel PRIVATE src/hzpch.h)

@@ -7,3 +7,6 @@
 [submodule "Hazel/thirdparty/imgui"]
 	path = Hazel/thirdparty/imgui
 	url = https://github.com/bnbowman/imgui
+[submodule "Hazel/thirdparty/glm"]
+	path = Hazel/thirdparty/glm
+	url = https://github.com/g-truc/glm
