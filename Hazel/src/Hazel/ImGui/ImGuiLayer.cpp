@@ -19,7 +19,7 @@ namespace Hazel {
     ImGuiLayer::ImGuiLayer()
         : Layer("ImGuiLayer")
     {
-
+        (void)m_Time;
     }
 
     ImGuiLayer::~ImGuiLayer()

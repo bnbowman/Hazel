@@ -85,6 +85,8 @@ namespace Hazel {
 
         glfwSetKeyCallback(m_Window, [](GLFWwindow* window, int key, int scancode, int action, int mods)
         {
+            (void)scancode;
+            (void)mods;
             WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
 
             switch(action) {
@@ -119,6 +121,8 @@ namespace Hazel {
 
         glfwSetMouseButtonCallback(m_Window, [](GLFWwindow* window, int key, int action, int mods)
         {
+            (void)action;
+            (void)mods;
             WindowData &data = *(WindowData *) glfwGetWindowUserPointer(window);
 
             switch(action) {
