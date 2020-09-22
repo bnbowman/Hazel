@@ -3,8 +3,6 @@
 //
 #pragma once
 
-//#include "Hazel/Core/PlatformDetection.h"
-
 #ifdef HZ_PLATFORM_WINDOWS
 #ifndef NOMINMAX
 // See
@@ -25,11 +23,7 @@
 #include <utility>
 #include <vector>
 
-//#include "Hazel/Core/Base.h"
-
 #include "Hazel/Core/Log.h"
-
-//#include "Hazel/Debug/Instrumentor.h"
 
 #ifdef HZ_PLATFORM_WINDOWS
 #include <Windows.h>

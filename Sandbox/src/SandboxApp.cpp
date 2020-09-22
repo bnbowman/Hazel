@@ -2,7 +2,9 @@
 // Created by Brett Bowman on 9/11/20.
 //
 
-#include "Hazel.h"
+#include <Hazel.h>
+
+#include "imgui/imgui.h"
 
 class ExampleLayer : public Hazel::Layer
 {

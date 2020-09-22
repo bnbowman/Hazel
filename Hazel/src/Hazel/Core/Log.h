@@ -5,8 +5,9 @@
 
 #include <memory>
 
-#include "spdlog/fmt/ostr.h"
+#include "Base.h"
 #include "spdlog/spdlog.h"
+#include "spdlog/fmt/ostr.h"
 
 namespace Hazel {
 

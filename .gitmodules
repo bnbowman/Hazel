@@ -10,3 +10,6 @@
 [submodule "Hazel/thirdparty/glm"]
 	path = Hazel/thirdparty/glm
 	url = https://github.com/g-truc/glm
+[submodule "Hazel/thirdparty/fmt"]
+	path = Hazel/thirdparty/fmt
+	url = https://github.com/fmtlib/fmt

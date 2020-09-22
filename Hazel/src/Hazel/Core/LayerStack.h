@@ -5,6 +5,8 @@
 
 #include "Hazel/Core/Layer.h"
 
+#include <vector>
+
 namespace Hazel {
 
 using LayerIterator = std::vector<Layer *>::iterator;
