@@ -2,13 +2,16 @@
 // Created by Brett Bowman on 9/13/20.
 //
 
+#include "hzpch.h"
 #include "MacWindow.h"
 
 #include "Hazel/Events/ApplicationEvent.h"
 #include "Hazel/Events/KeyEvent.h"
 #include "Hazel/Events/MouseEvent.h"
-#include "glad/glad.h"
-#include "hzpch.h"
+
+#include "Hazel/Platform/OpenGL/OpenGLContext.h"
+
+#include <glad/glad.h>
 
 namespace Hazel {
 
@@ -50,6 +53,10 @@ void MacWindow::Init(const WindowProperties &properties) {
   m_Window = glfwCreateWindow(static_cast<int>(m_Data.Width),
                               static_cast<int>(m_Data.Height),
                               m_Data.Title.c_str(), nullptr, nullptr);
+
+  m_Context = new OpenGLContext(m_Window);
+  m_Context->Init();
+
   glfwMakeContextCurrent(m_Window);
   glfwSetWindowUserPointer(m_Window, &m_Data);
 
@@ -146,7 +153,7 @@ void MacWindow::Shutdown() { glfwDestroyWindow(m_Window); }
 
 void MacWindow::OnUpdate() {
   glfwPollEvents();
-  glfwSwapBuffers(m_Window);
+  m_Context->SwapBuffers();
 }
 
 void MacWindow::SetVSync(const bool enabled) {
