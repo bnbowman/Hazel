@@ -3,9 +3,9 @@
 //
 #pragma once
 
-#include "Hazel/Core/Layer.h"
-
 #include <vector>
+
+#include "Hazel/Core/Layer.h"
 
 namespace Hazel {
 

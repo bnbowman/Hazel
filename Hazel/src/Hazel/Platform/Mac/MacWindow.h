@@ -3,10 +3,10 @@
 //
 #pragma once
 
+#include <GLFW/glfw3.h>
+
 #include "Hazel/Core/Window.h"
 #include "Hazel/Renderer/RenderContext.h"
-
-#include <GLFW/glfw3.h>
 
 namespace Hazel {
 
@@ -36,7 +36,7 @@ class MacWindow : public Window {
 
  private:
   GLFWwindow *m_Window;
-  RenderContext* m_Context;
+  RenderContext *m_Context;
 
   struct WindowData {
     std::string Title;
