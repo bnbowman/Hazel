@@ -2,12 +2,12 @@
 // Created by Brett Bowman on 9/22/20.
 //
 
-#include "hzpch.h"
 #include "OpenGLContext.h"
 
 #include <GLFW/glfw3.h>
 #include <glad/glad.h>
 
+#include "hzpch.h"
 
 namespace Hazel {
 

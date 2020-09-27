@@ -2,7 +2,6 @@
 // Created by Brett Bowman on 9/11/20.
 //
 
-#include "hzpch.h"
 #include "Application.h"
 
 #include <glad/glad.h>
@@ -10,12 +9,47 @@
 #include "Hazel/Core/Input.h"
 #include "Hazel/Core/Log.h"
 #include "Hazel/Events/ApplicationEvent.h"
+#include "Hazel/Renderer/BufferLayout.h"
+#include "hzpch.h"
 
 namespace Hazel {
 
 #define BIND_EVENT_FN(x) std::bind(&Application::x, this, std::placeholders::_1)
 
 Application *Application::s_Instance = nullptr;
+
+static GLenum ShaderDataTypeToOpenGLBaseType(ShaderDataType type) {
+  switch (type) {
+    case Hazel::ShaderDataType::Float:
+      return GL_FLOAT;
+    case Hazel::ShaderDataType::Float2:
+      return GL_FLOAT;
+    case Hazel::ShaderDataType::Float3:
+      return GL_FLOAT;
+    case Hazel::ShaderDataType::Float4:
+      return GL_FLOAT;
+    case Hazel::ShaderDataType::Mat3:
+      return GL_FLOAT;
+    case Hazel::ShaderDataType::Mat4:
+      return GL_FLOAT;
+    case Hazel::ShaderDataType::Int:
+      return GL_INT;
+    case Hazel::ShaderDataType::Int2:
+      return GL_INT;
+    case Hazel::ShaderDataType::Int3:
+      return GL_INT;
+    case Hazel::ShaderDataType::Int4:
+      return GL_INT;
+    case Hazel::ShaderDataType::Bool:
+      return GL_BOOL;
+    default:
+      HZ_CORE_ASSERT(false, "Unknown ShaderDataType!");
+      return GL_NONE;
+  }
+
+  HZ_CORE_ASSERT(false, "Unknown ShaderDataType!");
+  return 0;
+}
 
 Application::Application() {
   HZ_CORE_ASSERT(!s_Instance, "Application already exists!");
@@ -30,21 +64,40 @@ Application::Application() {
   glGenVertexArrays(1, &m_VertexArray);
   glBindVertexArray(m_VertexArray);
 
-  float vertices[3 * 3] = {-0.5f, -0.5f, 0.0f, 0.5f, -0.5f,
-                           0.0f,  0.0f,  0.5f, 0.0f};
+  float vertices[3 * 7] = {-0.5f, -0.5f, 0.0f, 0.8f, 0.2f, 0.8f, 1.0f,
+                           0.5f,  -0.5f, 0.0f, 0.2f, 0.3f, 0.8f, 1.0f,
+                           0.0f,  0.5f,  0.0f, 0.8f, 0.8f, 0.2f, 1.0f};
 
   m_VertexBuffer.reset(VertexBuffer::Create(vertices, sizeof(vertices)));
 
-  glEnableVertexAttribArray(0);
-  glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), nullptr);
+  {
+    BufferLayout in_layout = {{ShaderDataType::Float3, "a_Position"},
+                              {ShaderDataType::Float4, "a_Color"}};
 
-  uint32_t indices[3] = { 0, 1, 2 };
-  m_IndexBuffer.reset(IndexBuffer::Create(indices, sizeof(indices) / sizeof(uint32_t)));
+    m_VertexBuffer->SetLayout(in_layout);
+  }
+
+  uint32_t index = 0;
+  const auto &layout = m_VertexBuffer->GetLayout();
+  for (const auto &element : layout) {
+    glEnableVertexAttribArray(index);
+    glVertexAttribPointer(index, element.GetComponentCount(),
+                          ShaderDataTypeToOpenGLBaseType(element.Type),
+                          element.Normalized ? GL_TRUE : GL_FALSE,
+                          layout.GetStride(),
+                          (const void *)static_cast<uint64_t>(element.Offset));
+    index++;
+  }
+
+  uint32_t indices[3] = {0, 1, 2};
+  m_IndexBuffer.reset(
+      IndexBuffer::Create(indices, sizeof(indices) / sizeof(uint32_t)));
 
   const std::string vertexSrc = R"(
       #version 330 core
 
       layout(location = 0) in vec3 a_Position;
+
       out vec3 v_Position;
 
       void main()
@@ -58,6 +111,7 @@ Application::Application() {
       #version 330 core
 
       layout(location = 0) out vec4 color;
+
       in vec3 v_Position;
 
       void main()
@@ -78,7 +132,8 @@ void Application::Run() {
 
     m_Shader->Bind();
     glBindVertexArray(m_VertexArray);
-    glDrawElements(GL_TRIANGLES, m_IndexBuffer->GetCount(), GL_UNSIGNED_INT, nullptr);
+    glDrawElements(GL_TRIANGLES, m_IndexBuffer->GetCount(), GL_UNSIGNED_INT,
+                   nullptr);
 
     for (Layer *layer : m_LayerStack) layer->OnUpdate();
 
