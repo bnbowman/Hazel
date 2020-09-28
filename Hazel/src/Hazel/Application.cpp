@@ -4,12 +4,11 @@
 
 #include "Application.h"
 
-#include <glad/glad.h>
-
 #include "Hazel/Core/Input.h"
 #include "Hazel/Core/Log.h"
 #include "Hazel/Events/ApplicationEvent.h"
 #include "Hazel/Renderer/BufferLayout.h"
+#include "Hazel/Renderer/Renderer.h"
 #include "hzpch.h"
 
 namespace Hazel {
@@ -64,17 +63,18 @@ Application::Application() {
   const std::string vertexSrc = R"(
       #version 330 core
 
-layout(location = 0) in vec3 a_Position;
-layout(location = 1) in vec4 a_Color;
+      layout(location = 0) in vec3 a_Position;
+      layout(location = 1) in vec4 a_Color;
 
-out vec3 v_Position;
-out vec4 v_Color;
-void main()
-{
-v_Position = a_Position;
-v_Color = a_Color;
-gl_Position = vec4(a_Position, 1.0);
-}
+      out vec3 v_Position;
+      out vec4 v_Color;
+
+      void main()
+      {
+          v_Position = a_Position;
+          v_Color = a_Color;
+          gl_Position = vec4(a_Position, 1.0);
+      }
   )";
 
   const std::string fragmentSrc = R"(
@@ -95,26 +95,28 @@ gl_Position = vec4(a_Position, 1.0);
   m_Shader.reset(new Shader(vertexSrc, fragmentSrc));
 
   std::string blueShaderVertexSrc = R"(
-#version 330 core
+      #version 330 core
 
-layout(location = 0) in vec3 a_Position;
-out vec3 v_Position;
-void main()
-{
-v_Position = a_Position;
-gl_Position = vec4(a_Position, 1.0);
-}
+      layout(location = 0) in vec3 a_Position;
+      out vec3 v_Position;
+
+      void main()
+      {
+          v_Position = a_Position;
+          gl_Position = vec4(a_Position, 1.0);
+      }
 )";
 
   std::string blueShaderFragmentSrc = R"(
-#version 330 core
+      #version 330 core
 
-layout(location = 0) out vec4 color;
-in vec3 v_Position;
-void main()
-{
-color = vec4(0.2, 0.3, 0.8, 1.0);
-}
+      layout(location = 0) out vec4 color;
+      in vec3 v_Position;
+
+      void main()
+      {
+          color = vec4(0.2, 0.3, 0.8, 1.0);
+      }
 )";
 
   m_BlueShader.reset(new Shader(blueShaderVertexSrc, blueShaderFragmentSrc));
@@ -124,18 +126,16 @@ Application::~Application() {}
 
 void Application::Run() {
   while (m_Running) {
-    glClearColor(0.1f, 0.1f, 0.1f, 1);
-    glClear(GL_COLOR_BUFFER_BIT);
+    RenderCommand::SetClearColor({0.1f, 0.1f, 0.1f, 1});
+    RenderCommand::Clear();
+
+    Renderer::BeginScene();
 
     m_BlueShader->Bind();
-    m_SquareVA->Bind();
-    glDrawElements(GL_TRIANGLES, m_SquareVA->GetIndexBuffer()->GetCount(),
-                   GL_UNSIGNED_INT, nullptr);
+    Renderer::Submit(m_SquareVA);
 
     m_Shader->Bind();
-    m_VertexArray->Bind();
-    glDrawElements(GL_TRIANGLES, m_VertexArray->GetIndexBuffer()->GetCount(),
-                   GL_UNSIGNED_INT, nullptr);
+    Renderer::Submit(m_VertexArray);
 
     for (Layer *layer : m_LayerStack) layer->OnUpdate();
 
