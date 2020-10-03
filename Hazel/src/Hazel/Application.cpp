@@ -2,13 +2,15 @@
 // Created by Brett Bowman on 9/11/20.
 //
 
+#include "hzpch.h"
 #include "Application.h"
 
 #include "Hazel/Core/Input.h"
 #include "Hazel/Core/Log.h"
 #include "Hazel/Events/ApplicationEvent.h"
 #include "Hazel/Renderer/Renderer.h"
-#include "hzpch.h"
+
+#include <GLFW/glfw3.h>
 
 namespace Hazel {
 
@@ -33,10 +35,14 @@ Application::~Application() {}
 
 void Application::Run() {
   while (m_Running) {
+    float time = (float)glfwGetTime();
+    Timestep timestep = time - m_LastFrameTime;
+    m_LastFrameTime = time;
+
     RenderCommand::SetClearColor({0.1f, 0.1f, 0.1f, 1});
     RenderCommand::Clear();
 
-    for (Layer *layer : m_LayerStack) layer->OnUpdate();
+    for (Layer *layer : m_LayerStack) layer->OnUpdate(timestep);
 
     m_ImGuiLayer->Begin();
     for (Layer *layer : m_LayerStack) layer->OnImGuiRender();

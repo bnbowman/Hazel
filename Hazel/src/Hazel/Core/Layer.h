@@ -3,6 +3,7 @@
 //
 #pragma once
 
+#include "Hazel/Core/Timestep.h"
 #include "Hazel/Events/Event.h"
 
 namespace Hazel {
@@ -14,7 +15,7 @@ class Layer {
 
   virtual void OnAttach() {}
   virtual void OnDetach() {}
-  virtual void OnUpdate() {}
+  virtual void OnUpdate(Hazel::Timestep ts) { (void)ts; }
   virtual void OnImGuiRender() {}
   virtual void OnEvent(Event &event) { (void)event; }
 
